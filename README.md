@@ -1,1 +1,111 @@
-Initializing
+# Repolex Knowledge Graph of UKPLab/naacl2025-cove
+
+RDF knowledge graph data for [UKPLab/naacl2025-cove](https://github.com/UKPLab/naacl2025-cove), parsed by [repolex](https://repolex.ai).
+
+> **Note**: This data is experimental and subject to change without notice.
+
+## How to use this data
+
+The easiest way to get started is to install the [rlex](https://github.com/repolex-ai/rlex) query tool:
+
+```bash
+cargo install --git https://github.com/repolex-ai/rlex
+```
+
+Verify the install:
+
+```bash
+rlex --help
+```
+
+**rlex is designed to be used primarily by LLMs in a terminal.** Start up your favorite AI assistant and ask it to use rlex. It handles the SPARQL — you just ask questions in plain English.
+
+To load this repo's data:
+
+```bash
+rlex download UKPLab/naacl2025-cove
+```
+
+Consult `rlex --help` for other options, including SPARQL queries, HTTP server, and interactive visualization.
+
+## Data structure
+
+All data is stored as gzip-compressed [N-Quads](https://www.w3.org/TR/n-quads/) (`.nq.gz`), a standard RDF format that can be loaded into any triplestore or graph database.
+
+```
+.
+├── aggregate
+│   ├── ast
+│   │   └── 4f76e18d1c297c7aac9b8ed835b5512b7a0d89e5
+│   │       └── chunk-001.nq.gz
+│   └── repolex
+│       └── 4f76e18d1c297c7aac9b8ed835b5512b7a0d89e5
+│           └── chunk-001.nq.gz
+├── blob
+│   ├── 0d1ac19050eb7dbca6b832686bbefd4d3ac54156.nq.gz
+│   ├── 0e6b3436f6629eb431a0cac1113ae4067f9995a3.nq.gz
+│   ├── 103317d5ce84d527344f31e29a3c05082ca2101e.nq.gz
+│   ├── 20e5142d87dcb6822bb3b78f03101a11666003d3.nq.gz
+│   ├── 2520f27ca03fc1b273d07e37df1527ec030ab063.nq.gz
+│   ├── 261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64.nq.gz
+│   ├── 2d83a5d6d8595aef278e07ec4fd8362520993c57.nq.gz
+│   ├── 319ca3a463c96f4158c6d5b271659dd9c451d084.nq.gz
+│   ├── 35d1bc6c70a21201a24a31b444f75b96a73eadd2.nq.gz
+│   ├── 512c3755f6f3a9f79368f8eb6e2f1cb63cacb226.nq.gz
+│   ├── 51bc0856a775dbbe16f91d90071c78b86742e76a.nq.gz
+│   ├── 615ccc2688960df4c93ae981088a5978d36d587d.nq.gz
+│   ├── 66397b5ff494d0decdd00e6f83f85037c9f31aed.nq.gz
+│   ├── 76a2d913ef4ec21554ce41057d30ad3193172d4f.nq.gz
+│   ├── 7d4f96c54aa155a17387e64501c50b6a0469932c.nq.gz
+│   ├── 7f4a35c6b999ffc7582b064900b43f5945fa4a1a.nq.gz
+│   ├── 8245be0dc972ff5df7aef3c6f6a1278d5fb00549.nq.gz
+│   ├── 8da7831c3c4f178480d8dc1be44ea71434d1159d.nq.gz
+│   ├── 8ef3c3f750ba6463b3fa928ef399d99186091af2.nq.gz
+│   ├── 9003b0ae6c296cd864433cb1c4b998168eeb35aa.nq.gz
+│   ├── 9b0188605c48571ecb80dc855fa8137da26180b1.nq.gz
+│   ├── 9d5762465e30089e987bb4708f1635a60e804519.nq.gz
+│   ├── 9e6eff0b6014f54d843d92e4f0a1b2f3a78d3d17.nq.gz
+│   ├── 9fd59520debacf1d62bc7f0a0aa6b5f448b234bf.nq.gz
+│   ├── a406183972828935b6cb4cbf131bbb1e29210ed5.nq.gz
+│   ├── b8f695a0f827cdc6a1bc71ca34011ac8254a1f60.nq.gz
+│   ├── b8f71f1594d0ef468ef067a9ba7508d121bdbe70.nq.gz
+│   ├── c4ce56a5c927858c5ecbe06a5ebadec4fe83a237.nq.gz
+│   ├── c6c61a8b0b736c660bdd613323f39274db036d5d.nq.gz
+│   ├── cdbdff91c3ebd69beb17ad39b16afe8bf8ea685a.nq.gz
+│   ├── cde5f20ee4f87d2eadcad5ac0e6b206bdc3a1a68.nq.gz
+│   ├── ee3a4de23e51e946db78b98454052b4580896589.nq.gz
+│   ├── f080a586ba30795abf47ef0c2794ba9f709c4ba9.nq.gz
+│   └── f612e96043d2a99c2f09c53d853589c357c99fb3.nq.gz
+├── branch
+│   └── branch.nq.gz
+├── commit
+│   └── commit.nq.gz
+├── filetree
+│   └── 4f76e18d1c297c7aac9b8ed835b5512b7a0d89e5.nq.gz
+├── pr
+│   └── pr.nq.gz
+└── tag
+    └── tag.nq.gz
+
+12 directories, 41 files
+```
+
+| Directory | What it contains |
+|-----------|-----------------|
+| `blob/` | Per-file AST graphs, content-addressed by git blob SHA. Each file in the source repo gets its own graph. |
+| `aggregate/ast/` | Combined AST graph per parsed commit. Merges all blob graphs for a snapshot of the entire codebase at that point. |
+| `aggregate/lsp/` | Language Server Protocol enrichment: resolved symbols, definitions, references, and type information. |
+| `aggregate/dataflow/` | Interprocedural data flow edges between functions and modules. |
+| `aggregate/repolex/` | Combined graph (AST + LSP + dataflow) per commit. |
+| `commit/` | Git commit metadata (author, date, message, parent links). |
+| `branch/` | Branch metadata. |
+| `tag/` | Tag metadata. |
+| `filetree/` | File tree snapshots per commit (which files existed and their blob SHAs). |
+| `audit/` | Code architecture and graph audit reports per commit. |
+
+## Source repository
+
+[UKPLab/naacl2025-cove](https://github.com/UKPLab/naacl2025-cove)
+
+---
+*Parsed on 2026-11-08 by [repolex](https://repolex.ai)*
